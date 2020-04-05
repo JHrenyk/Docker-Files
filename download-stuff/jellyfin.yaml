@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  jellyfin:
+    image: linuxserver/jellyfin:latest
+    ports:
+      - "8096:8096"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: jellyfin-config
+        target: /config
+      - type: bind
+        source: /media/media-lvol0/Movies
+        target: /data/movies
+      - type: bind
+        source: /media/media-lvol0/TV-Series
+        target: /data/tvshows
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  jellyfin-config:

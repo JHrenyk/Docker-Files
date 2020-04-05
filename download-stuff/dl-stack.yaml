@@ -1,0 +1,72 @@
+version: "3.7"
+
+services:
+
+   nzbget:
+    image: linuxserver/nzbget:latest
+    ports:
+      - "6789:6789/tcp"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: nzbget-config
+        target: /config
+      - type: bind
+        source: /media/media-lvol0/downloads
+        target: /downloads
+    networks:
+       download:
+    deploy:
+      restart_policy:
+        condition: on-failure
+   radarr:
+    image: linuxserver/radarr:latest
+    ports:
+      - "7878:7878/tcp"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: radarr-config
+        target: /config
+      - type: bind
+        source: /media/media-lvol0/downloads
+        target: /downloads
+      - type: bind
+        source: /media/media-lvol0/Movies
+        target: /movies
+    networks:
+       download:
+    deploy:
+      restart_policy:
+        condition: on-failure
+   sonarr:
+    image: linuxserver/sonarr:latest
+    ports:
+      - "8989:8989/tcp"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: sonarr-config
+        target: /config
+      - type: bind
+        source: /media/media-lvol0/downloads
+        target: /downloads
+      - type: bind
+        source: /media/media-lvol0/TV-Series
+        target: /tv
+    networks:
+       download:
+    deploy:
+       restart_policy:
+          condition: on-failure
+
+volumes:
+   nzbget-config:
+   radarr-config:
+   sonarr-config:
+
+networks:
+   download:        

@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  
+  nextcloud:
+    image: linuxserver/nextcloud
+    env_file:
+      - ./common.env
+    ports:
+      - '8443:443'
+    volumes:
+      - type: volume
+        source: nextcloud-config
+        target: /config
+      - type: bind
+        source: /media/storage-lvol0/nextcloud
+        target: /data
+    networks:
+      nextcloud:
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mariadb
+  
+  mariadb:
+    image: linuxserver/mariadb
+    env_file:
+      - ./common.env
+      - ./mariadb.env
+    ports:
+      - '3306:3306'
+    volumes:
+      - type: bind
+        source: /media/storage-lvol0/nc-mariadb
+        target: /config
+    networks:
+      nextcloud:
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  nextcloud-config:
+
+networks:
+  nextcloud: 
