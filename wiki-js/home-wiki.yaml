@@ -1,0 +1,58 @@
+version: "3.7"
+
+services:
+
+  postgres:
+    image: postgres:11
+    env_file:
+      - ./postgres.env
+      - ./common.env 
+    volumes:
+      - type: bind
+        source: /etc/wiki/.db-secret
+        target: /etc/wiki/.db-secret
+        read_only: true
+      - type: bind
+        source: /media/storage-lvol0/wiki/pgdata
+        target: /var/lib/postgresql/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+    networks:
+      wikinet: 
+  wiki:
+    image: requarks/wiki:2.2
+    env_file:
+      - ./wiki.env
+    ports:
+      - "3000:3000"
+      - "3443:3443" 
+    volumes:
+      - type: bind 
+        source: /etc/wiki/.db-secret
+        target: /etc/wiki/.db-secret
+        read_only: true
+    deploy:
+      restart_policy:
+        condition: on-failure
+    networks:
+      wikinet:
+    depends_on:
+      - wiki_postgres
+  update-companion:
+    image: requarks/wiki-update-companion:latest
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+    deploy:
+      restart_policy:
+        condition: on-failure
+    networks:
+      wikinet:
+    depends_on:
+      - wiki_postgres
+
+networks:
+  wikinet:
