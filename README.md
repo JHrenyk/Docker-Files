@@ -1,2 +1,2 @@
 # Docker-Files
-Collection of Docker related files
+Docker Deploy files for various home services
