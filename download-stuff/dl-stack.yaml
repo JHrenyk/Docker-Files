@@ -62,11 +62,33 @@ services:
     deploy:
        restart_policy:
           condition: on-failure
+   bazarr:
+    image: linuxserver/bazarr:latest
+    ports:
+      - "6767:6767/tcp"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: bazarr-config
+        target: /config
+      - type: bind
+        source: /media/media-lvol0/Movies
+        target: /movies
+      - type: bind
+        source: /media/media-lvol0/TV-Series
+        target: /tv
+    networks:
+       download:
+    deploy:
+       restart_policy:
+          condition: on-failure
 
 volumes:
    nzbget-config:
    radarr-config:
    sonarr-config:
+   bazarr-config:
 
 networks:
    download:        
