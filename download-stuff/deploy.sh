@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker stack deploy -c ./dl-stack.yaml Download 
+docker stack deploy -c ./dl-apps.yaml Download 

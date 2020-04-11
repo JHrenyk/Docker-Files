@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
 
-   nzbget:
+  nzbget:
     image: linuxserver/nzbget:latest
     ports:
       - "6789:6789/tcp"
@@ -16,11 +16,12 @@ services:
         source: /media/media-lvol0/downloads
         target: /downloads
     networks:
-       download:
+      - download
     deploy:
       restart_policy:
         condition: on-failure
-   radarr:
+   
+  radarr:
     image: linuxserver/radarr:latest
     ports:
       - "7878:7878/tcp"
@@ -37,11 +38,12 @@ services:
         source: /media/media-lvol0/Movies
         target: /movies
     networks:
-       download:
+      - download
     deploy:
       restart_policy:
         condition: on-failure
-   sonarr:
+   
+  sonarr:
     image: linuxserver/sonarr:latest
     ports:
       - "8989:8989/tcp"
@@ -58,11 +60,12 @@ services:
         source: /media/media-lvol0/TV-Series
         target: /tv
     networks:
-       download:
+      - download
     deploy:
-       restart_policy:
-          condition: on-failure
-   bazarr:
+      restart_policy:
+        condition: on-failure
+   
+  bazarr:
     image: linuxserver/bazarr:latest
     ports:
       - "6767:6767/tcp"
@@ -79,16 +82,39 @@ services:
         source: /media/media-lvol0/TV-Series
         target: /tv
     networks:
-       download:
+      - download
     deploy:
-       restart_policy:
-          condition: on-failure
+      restart_policy:
+        condition: on-failure
 
+  lidarr:
+    image: linuxserver/lidarr:latest
+    ports:
+      - "8686:8686/tcp"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: lidarr-config
+        target: /config
+      - type: bind
+        source: /media/media-lvol0/Music
+        target: /music
+      - type: bind
+        source: /media/media-lvol0/downloads
+        target: /downloads
+    networks:
+      - download
+    deploy:
+      restart_policy:
+        condition: on-failure
+  
 volumes:
    nzbget-config:
    radarr-config:
    sonarr-config:
    bazarr-config:
+   lidarr-config:
 
 networks:
    download:        

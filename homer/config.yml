@@ -1,0 +1,69 @@
+---
+# Homepage configuration
+# See https://fontawesome.com/icons for icons options
+
+title: "Hrenyk.com"
+subtitle: "Welcome to"
+logo: "assets/jedi_order.png"
+# icon: "fas fa-skull-crossbones" Optional icon
+footer: '<p>Created with <span class="has-text-danger">❤️</span> with <a href="https://bulma.io/">bulma</a>, <a href="https://vuejs.org/">vuejs</a> & <a href="https://fontawesome.com/">font awesome</a> // Fork me on <a href="https://github.com/bastienwirtz/homer"><i class="fab fa-github-alt"></i></a></p>'  # set false if you want to hide it.
+
+# Optional message
+message:
+  # url: https://....
+  style: "is-dark" # See https://bulma.io/documentation/components/message/#colors for styling options.
+  title: "Home Page" 
+  content: "This is my home page. It is still a work in progress but this will be the landing pad for all services in the Hrenyk home"
+
+# Optional navbar
+# links: [] # Allows for navbar (dark mode, layout, and search) without any links
+links:
+  - name: "Git Hub"
+    icon: "fab fa-github"
+    url: "http://https://github.com/JHrenyk?tab=repositories"
+    target: '_blank' # optionnal html a tag target attribute
+  - name: "Wiki"
+    icon: "fas fa-book"
+    url: "http://wiki.hrenyk.lan"
+
+# Services
+# First level array represent a group.
+# Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
+services:
+  - name: "DevOps"
+    icon: "fas fa-code-branch"
+    items:
+      - name: "Jenkins"
+        logo: "assets/tools/jenkins.png"
+        subtitle: "Continuous integration server"
+        tag: "CI"
+        url: "https://jenkins.io/"
+        target: '_blank' # optionnal html a tag target attribute
+      - name: "RabbitMQ Management"
+        logo: "assets/tools/rabbitmq.png"
+        subtitle: "Manage & monitor RabbitMQ server"
+        tag: "haproxy"
+        # Optional tagstyle
+        # Same styling options as the optional message.
+        tagstyle: "is-success"
+        url: "https://www.rabbitmq.com/"
+  - name: "Download Apps"
+    icon: "fas fa-rss"
+    items:
+      - name: "NZBget"
+        logo: "assets/tools/nzbget.png"
+        subtitle: "Download NZB's"
+        url: "http://nzbget.hrenyk.lan"
+      - name: "Radarr"
+        logo: "assets/tools/radarr.png"
+        subtitle: "RSS Movie Downloader"
+        url: "http://radarr.hrenyk.lan"
+      - name: "Sonarr"
+        logo: "assets/tools/sonarr.png"
+        subtitle: "RSS TV Show Downloader"
+        url: "http://sonarr.hrenyk.lan"
+      - name: "Bazarr"
+        logo: "assets/tools/bazarr.png"
+        subtitle: "Subtitle Downloader"
+        tag: "DL"
+        url: "http://bazarr.hrenyk.lan"
