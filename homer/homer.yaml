@@ -10,8 +10,5 @@ services:
       - '8088:8080'
     volumes:
       - type: bind
-        source: /etc/homer/config.yml
-        target: /www/config.yml
-      - type: bind
-        source: /etc/homer/assets
-        target: /www/assets
+        source: /home/jhrenyk/homer
+        target: /www

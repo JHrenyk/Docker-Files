@@ -67,3 +67,8 @@ services:
         subtitle: "Subtitle Downloader"
         tag: "DL"
         url: "http://bazarr.hrenyk.lan"
+      - name: "Lidarr"
+        logo: "assets/tools/lidarr.png"
+        subtitle: "Music Downloader"
+        url: "http://lidarr.hrenyk.lan"
+        
