@@ -109,12 +109,28 @@ services:
       restart_policy:
         condition: on-failure
   
+  ombi:
+    image: linuxserver/ombi:latest
+    ports:
+      - "3579:3579/tcp"
+    env_file:
+      - ./common.env
+    volumes:
+      - type: volume
+        source: ombi-config
+        target: /config
+    networks:
+      - download
+    deploy:
+      restart_policy:
+        condition: on-failure
+
 volumes:
    nzbget-config:
    radarr-config:
    sonarr-config:
    bazarr-config:
    lidarr-config:
-
+   ombi-config:
 networks:
    download:        
